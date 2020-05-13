@@ -8,8 +8,6 @@ spec:
   podSelector:
     matchLabels:
       app: web
-  policyTypes:
-    - Ingress
   ingress:
     - from:
       - ipBlock:
@@ -17,7 +15,6 @@ spec:
       ports:
         - protocol: TCP
           port: 9000
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -26,13 +23,4 @@ metadata:
   namespace: back-end
 spec:
   podSelector: {}
-  policyTypes:
-    - Ingress
-  ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              tier: front
-      ports:
-        - protocol: TCP
-          port: 9000
+  ingress: []

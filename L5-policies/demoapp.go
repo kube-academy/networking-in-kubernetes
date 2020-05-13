@@ -7,12 +7,15 @@ import (
 	"log"
 	"net/http"
 	"github.com/go-errors/errors"
+	"os"
 )
 import _ "github.com/go-sql-driver/mysql"
 
 type frontend struct{}
 func(h frontend) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	msg := "<h1>Front-End Home Page</h1><br><ul>"
+	hostname, _ := os.Hostname()
+
+	msg := "<h1>" + hostname + " Home Page</h1><br><ul>"
 
 	dbMsg, _ := extQuery("http://dbsvc.back-end/dbhealth")
 	msg = msg+ "<li>Back end DB service reports:" + dbMsg + "<br>"

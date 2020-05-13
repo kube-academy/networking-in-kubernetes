@@ -13,5 +13,6 @@ kubectl create ns back-end
 kubectl create configmap dbhost -n back-end --from-literal dbhost=$(hostname -I | cut -f1 -d' ')
 kubectl apply -f app.yaml
 
+echo 'alias k="kubectl"' > ~/.bashrc
+
 sleep 10s
-kubectl port-forward service/web -n front-end --address 0.0.0.0 9000:80
