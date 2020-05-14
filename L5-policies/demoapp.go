@@ -120,7 +120,7 @@ func extQuery(url string) string {
 
 
 func querydb() string {
-	db, err := sql.Open("mysql", "root:example@tcp(" + *dbserver + ")/mysql")
+	db, err := sql.Open("mysql", "root:example@tcp(" + *dbserver + ")/mysql?timeout=3s")
 
 	if err != nil {
 		println(errors.Wrap(err,1).ErrorStack())
