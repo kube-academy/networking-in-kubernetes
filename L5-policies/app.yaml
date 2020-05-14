@@ -21,7 +21,7 @@ metadata:
   labels:
     run: web
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       run: web
@@ -32,8 +32,16 @@ spec:
     spec:
       containers:
         - image: demoapp:latest
+          command: ["/demoapp","-db", "$(DBHOST)"]
+          env:
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: dbhost
+                  key: dbhost
           imagePullPolicy: Never
           name: web
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -84,7 +92,16 @@ spec:
       containers:
         - image: demoapp:latest
           imagePullPolicy: Never
-          name: dbsvc
+          command: ["/demoapp","-db", "$(DBHOST)"]
+          imagePullPolicy: Never
+          name: extsvc
+          env:
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: dbhost
+                  key: dbhost
+
 ---
 apiVersion: v1
 kind: Service

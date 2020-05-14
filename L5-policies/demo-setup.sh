@@ -11,8 +11,10 @@ kind load docker-image demoapp:latest
 
 kubectl create ns back-end
 kubectl create configmap dbhost -n back-end --from-literal dbhost=$(hostname -I | cut -f1 -d' ')
+
+kubectl create ns front-end
+kubectl create configmap dbhost -n front-end --from-literal dbhost=$(hostname -I | cut -f1 -d' ')
+
 kubectl apply -f app.yaml
 
 echo 'alias k="kubectl"' > ~/.bashrc
-
-sleep 10s
