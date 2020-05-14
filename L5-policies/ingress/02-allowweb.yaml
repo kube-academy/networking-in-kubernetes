@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: front-policy
+  name: allow-web-in-policy
   namespace: front-end
 spec:
   podSelector:
@@ -15,12 +15,3 @@ spec:
       ports:
         - protocol: TCP
           port: 9000
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: back-policy
-  namespace: back-end
-spec:
-  podSelector: {}
-  ingress: []

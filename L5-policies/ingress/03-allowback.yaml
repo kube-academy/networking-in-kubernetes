@@ -2,24 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: front-policy
-  namespace: front-end
-spec:
-  podSelector:
-    matchLabels:
-      run: web
-  ingress:
-    - from:
-        - ipBlock:
-            cidr: 172.19.0.0/16
-      ports:
-        - protocol: TCP
-          port: 9000
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: back-policy
+  name: allow-front-in-to-back-policy
   namespace: back-end
 spec:
   podSelector: {}
