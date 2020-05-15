@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-  config.vm.network "forwarded_port", guest: 9000, host: 9000
+  # config.vm.network "forwarded_port", guest: 9000, host: 9000
   config.vm.network "forwarded_port", guest: 7777, host: 7777
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -74,7 +74,8 @@ Vagrant.configure("2") do |config|
         ca-certificates \
         curl \
         gnupg-agent \
-        software-properties-common
+        software-properties-common \
+        jq
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
@@ -92,8 +93,7 @@ Vagrant.configure("2") do |config|
 
     usermod -aG docker vagrant
 
-    curl -sL "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" \
-      -o /usr/local/bin/docker-compose
+    curl -sL "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
 
     curl -sLO https://storage.googleapis.com/kubernetes-release/release/`curl \
@@ -105,5 +105,11 @@ Vagrant.configure("2") do |config|
     chmod +x ./kind
     mv ./kind /usr/local/bin/kind
 
+    cd /vagrant
+    if [ ! -f /vagrant/octant_0.12.1_Linux-64bit.deb ]
+      then
+        wget -q https://github.com/vmware-tanzu/octant/releases/download/v0.12.1/octant_0.12.1_Linux-64bit.deb
+    fi
+    dpkg -i /vagrant/octant_0.12.1_Linux-64bit.deb
   SHELL
 end
