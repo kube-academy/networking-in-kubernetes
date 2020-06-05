@@ -27,8 +27,8 @@ var (
 )
 
 var (
-	Fail = Red("fail    ")
-	Pass = Green("pass    ")
+	Fail = Red(  "no connection ")
+	Pass = Green("connected     ")
 )
 
 func Color(colorString string) func(...interface{}) string {
