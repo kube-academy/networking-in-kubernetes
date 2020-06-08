@@ -9,12 +9,20 @@ spec:
     matchLabels:
       run: web
   policyTypes:
+    - Ingress
     - Egress
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: 172.19.0.0/16
+      ports:
+        - protocol: TCP
+          port: 9000
   egress:
     - to:
-      - namespaceSelector:
-          matchLabels:
-            tier: back
+        - namespaceSelector:
+            matchLabels:
+              tier: back
       ports:
         - protocol: TCP
           port: 9000

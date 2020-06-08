@@ -105,11 +105,19 @@ Vagrant.configure("2") do |config|
     chmod +x ./kind
     mv ./kind /usr/local/bin/kind
 
+    # cd /vagrant
+    # if [ ! -f /vagrant/octant_0.12.1_Linux-64bit.deb ]
+    # then
+    #    wget -q https://github.com/vmware-tanzu/octant/releases/download/v0.12.1/octant_0.12.1_Linux-64bit.deb
+    # fi
+    # dpkg -i /vagrant/octant_0.12.1_Linux-64bit.deb
+
     cd /vagrant
-    if [ ! -f /vagrant/octant_0.12.1_Linux-64bit.deb ]
-      then
-        wget -q https://github.com/vmware-tanzu/octant/releases/download/v0.12.1/octant_0.12.1_Linux-64bit.deb
+    if [ ! -f /vagrant/bat_0.11.0_amd64.deb ]
+    then
+        wget -q https://github.com/sharkdp/bat/releases/download/v0.11.0/bat_0.11.0_amd64.deb
     fi
-    dpkg -i /vagrant/octant_0.12.1_Linux-64bit.deb
+    apt install -y gdebi
+    gdebi -n bat_0.11.0_amd64.deb
   SHELL
 end

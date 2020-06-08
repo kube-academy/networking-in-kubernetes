@@ -9,7 +9,13 @@ spec:
     matchLabels:
       run: extsvc
   policyTypes:
+    - Ingress
     - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              tier: front
   egress:
     - to:
       ports:
