@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-db-out-policy
+  name: dbsvc
   namespace: back-end
 spec:
   podSelector:
